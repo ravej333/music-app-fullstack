@@ -1,19 +1,22 @@
-# ---------- Build stage ----------
-FROM maven:3.9-eclipse-temurin-21 AS build
+# /backend/Dockerfile
+
+# Use an official Node.js runtime as a parent image
+FROM node:20-alpine
+
+# Set the working directory in the container
 WORKDIR /app
 
-COPY pom.xml .
-RUN --mount=type=cache,target=/root/.m2 mvn -B -DskipTests dependency:go-offline
+# Copy package.json and package-lock.json first to leverage Docker cache
+COPY package*.json ./
 
-COPY src ./src
-RUN --mount=type=cache,target=/root/.m2 mvn -B -DskipTests clean package
+# Install app dependencies securely
+RUN npm ci
 
-# ---------- Run stage ----------
-FROM eclipse-temurin:21-jre-alpine
-WORKDIR /app
+# Bundle your app's source code
+COPY . .
 
-COPY --from=build /app/target/*.jar app.jar
-
-ENV JAVA_OPTS=""
+# Expose the port your server runs on
 EXPOSE 9090
-ENTRYPOINT ["sh","-c","java $JAVA_OPTS -jar app.jar"]
+
+# Define the command to start your server
+CMD [ "npm", "start" ]

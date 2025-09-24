@@ -1,0 +1,61 @@
+version: "3.9"
+
+services:
+  # 1. Database Service (MySQL)
+  db:
+    image: mysql:8.0
+    container_name: music-app-db
+    environment:
+      # UPDATED: Set the root password for the database
+      MYSQL_ROOT_PASSWORD: "MySQL@0040****"
+      MYSQL_DATABASE: musicdb
+    ports:
+      # Maps your computer's port 3307 to the container's MySQL port 3306
+      - "3307:3306"
+    healthcheck:
+      # UPDATED: The health check now uses the correct password
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pMySQL@0040****"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  # 2. Backend Service (Node.js/Express)
+  backend:
+    build: ./backend
+    container_name: music-app-backend
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PORT: 9090
+      # UPDATED: The database connection URL now uses the correct password
+      DATABASE_URL: "mysql://root:MySQL@0040****@db:3306/musicdb"
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+
+  # 3. Frontend Service (React/Vite)
+  frontend:
+    build: ./frontend/frontend
+    container_name: music-app-frontend
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+    restart: unless-stopped
+
+  # 4. Admin Portal Service (React/Vite)
+  admin-portal:
+    build: ./admin-portal
+    container_name: music-app-admin-portal
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+
+# This named volume will persist your MySQL data
+volumes:
+  mysql_data:
