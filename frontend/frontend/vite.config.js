@@ -3,15 +3,5 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  server: {
-    open: true, // auto open browser
-    fs: {
-      strict: false,
-    }
-  },
-  resolve: {
-    alias: {
-      '@': '/src', // optional shortcut for imports
-    },
-  }
+  base: '/YOUR_REPO_NAME/', // Use the same repo name from Part 1
 })
