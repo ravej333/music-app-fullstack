@@ -40,6 +40,10 @@ jobs:
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
+      # FIX: Add a checkout step in the deploy job to get the docker-compose.yml file.
+      - name: Checkout Code on Server
+        uses: actions/checkout@v3
+
       - name: Deploy to Server
         uses: appleboy/ssh-action@master
         with:
@@ -47,6 +51,12 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            # Navigate to the project directory on your server
             cd /home/ubuntu/music-app-fullstack
+
+            # Pull the latest images from Docker Hub
             sudo docker compose pull
-            sudo docker compose up --build -d
+
+            # Rebuild and restart the containers in the background. 
+            # The --build is redundant since we are pulling new images, but safe.
+            sudo docker compose up -d
