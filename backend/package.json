@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "music-app-backend",
   "version": "1.0.0",
   "description": "Backend for the music streaming application",
   "main": "src/server.js",
@@ -8,8 +8,8 @@
     "start": "node src/server.js",
     "dev": "nodemon src/server.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["node", "express", "backend", "music"],
+  "author": "Your Name",
   "license": "ISC",
   "dependencies": {
     "@supabase/supabase-js": "^2.44.2",
