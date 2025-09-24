@@ -1,0 +1,49 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: music-app-db
+    environment:
+      # FIX: Use a secure password and database name for your music app
+      MYSQL_ROOT_PASSWORD: YourSecurePassword
+      MYSQL_DATABASE: music_app_db
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-pYourSecurePassword"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  backend:
+    # Correct build path for your backend
+    build: ./backend
+    container_name: music-app-backend
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SERVER_PORT: 9090
+      # FIX: Use the new database name
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/music_app_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: YourSecurePassword
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+
+  frontend:
+    # Correct build path for your frontend
+    build: ./frontend
+    container_name: music-app-frontend
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
