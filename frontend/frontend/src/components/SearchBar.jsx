@@ -1,54 +1,37 @@
-import React, { useState, useCallback } from "react";
-import SearchBar from "../components/SearchBar.jsx";
-import SongDetailCard from "../components/SongDetailCard.jsx";
-import { usePlayer } from '../context/PlayerContext.jsx'; // Import the player hook
+import React, { useState, useEffect } from 'react';
+import { assets } from '../assets/assets'; // Make sure to import your assets
 
-const Search = () => {
-  const [results, setResults] = useState([]);
-  const [searched, setSearched] = useState(false);
-  const { masterSongList } = usePlayer(); // Get the master list of all songs
+const SearchBar = ({ onSearch }) => {
+  const [query, setQuery] = useState("");
 
-  // useCallback prevents this function from being recreated on every render
-  const handleSearch = useCallback((query) => {
-    if (!query) {
-      setResults([]);
-      setSearched(false);
-      return;
-    }
-    const lowercasedQuery = query.toLowerCase();
-    
-    // Search the master list, which includes unlisted songs
-    const searchResults = masterSongList.filter(song => 
-      song.name.toLowerCase().includes(lowercasedQuery) ||
-      song.desc.toLowerCase().includes(lowercasedQuery)
-    );
-    
-    setResults(searchResults);
-    setSearched(true);
-  }, [masterSongList]);
+  // NEW: useEffect hook to handle debouncing
+  useEffect(() => {
+    // Set a timer to run the search after 500ms
+    const timerId = setTimeout(() => {
+      if (query) {
+        onSearch(query);
+      }
+    }, 500); // 500ms delay
+
+    // This is the cleanup function. It runs every time the query changes.
+    // It cancels the previous timer, so the search only runs when the user stops typing.
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [query, onSearch]); // Rerun the effect if query or onSearch changes
 
   return (
-    <div className="search-page">
-      <SearchBar onSearch={handleSearch} />
-      <div className="search-results-container">
-        {searched && results.length > 0 && (
-          <h2 className="results-heading">Search Results</h2>
-        )}
-        
-        {searched && results.length === 0 ? (
-          <p className="no-results-message">No results found. Try a different search.</p>
-        ) : (
-          results.map(song => (
-            <SongDetailCard key={song.id} song={song} />
-          ))
-        )}
-
-        {!searched && (
-           <p className="no-results-message">Search for your favorite songs, artists, or albums.</p>
-        )}
-      </div>
+    <div className="search-bar-container">
+      <img src={assets.search_icon} alt="Search" className="search-icon" />
+      <input
+        type="text"
+        placeholder="What do you want to listen to?"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        className="search-input"
+      />
     </div>
   );
 };
 
-export default Search;
+export default SearchBar;

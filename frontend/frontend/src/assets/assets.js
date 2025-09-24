@@ -55,10 +55,7 @@ import img003 from "./img003.jpg";
 import img004 from "./img004.jpg";
 import img005 from "./img005.jpg";
 
-// --- Unlisted Song Asset Imports ---
-// frontend/src/assets/assets.js
-
-// -- Unlisted Song Asset Imports --
+// --- Asset Imports for Former Unlisted Songs ---
 import unlisted_song_1_audio from "./unlisted_song_1_audio.mp3";
 import unlisted_song_1_image from "./unlisted_song_1_image.jpeg";
 import unlisted_song_2_audio from "./unlisted_song_2_audio.mp3";
@@ -69,6 +66,7 @@ import unlisted_song_4_audio from "./unlisted_song_4_audio.mp3";
 import unlisted_song_4_image from "./unlisted_song_4_image.jpeg";
 import unlisted_song_5_audio from "./unlisted_song_5_audio.mp3";
 import unlisted_song_5_image from "./unlisted_song_5_image.jpeg";
+
 
 // --- Regular Song Audio Imports ---
 import song1 from "./song1.mp3";
@@ -119,20 +117,13 @@ export const assets = {
 };
 
 // --- Data Exports ---
+// UPDATED: Banner now links to the newly integrated songs (IDs 17-21)
 export const bannerData = [
-    { id: 'banner_1', image: img001, songId: 101 },
-    { id: 'banner_2', image: img002, songId: 102 },
-    { id: 'banner_3', image: img003, songId: 103 },
-    { id: 'banner_4', image: img004, songId: 104 },
-    { id: 'banner_5', image: img005, songId: 105 },
-];
-
-export const unlistedSongsData = [
-    { id: 101, name: "Firestorm", image: unlisted_song_1_image, file: unlisted_song_1_audio, desc: "They Call Him OG - Firestorm", duration: "4:05" },
-    { id: 102, name: "Om Namo Bhagavate", image: unlisted_song_2_image, file: unlisted_song_2_audio, desc: "Mahavatar Narsimha-Om Namo Bhagavate", duration: "3:24" },
-    { id: 103, name: "Chikitu", image: unlisted_song_3_image, file: unlisted_song_3_audio, desc: "Coolie-Chikitu", duration: "3:36" },
-    { id: 104, name: "Katyayani", image: unlisted_song_4_image, file: unlisted_song_4_audio, desc: "Little Hearts-Katyayani", duration: "1:45" },
-    { id: 105, name: "Young Black & Rich", image: unlisted_song_5_image, file: unlisted_song_5_audio, desc: "Melly Mike-Young Black & Rich", duration: "3:35" },
+    { id: 'banner_1', image: img001, songId: 17 }, // Banner for Firestorm
+    { id: 'banner_2', image: img002, songId: 18 }, // Banner for Om Namo Bhagavate
+    { id: 'banner_3', image: img003, songId: 19 }, // Banner for Chikitu
+    { id: 'banner_4', image: img004, songId: 20 }, // Banner for Katyayani
+    { id: 'banner_5', image: img005, songId: 21 }, // Banner for Young Black & Rich
 ];
 
 export const albumsData = [
@@ -144,15 +135,16 @@ export const albumsData = [
     { id: 5, name: "Happy Favorites", image: img71, desc: "Here we created favorite songs for you", bgColor: "#744210", categoryKey: "love" },
 ];
 
+// UPDATED: The 5 "unlisted" songs have been added here with new IDs and categories.
 export const songsData = [
     { id: 0, name: "Starboy", image: img2, file: song1, desc: "The Weeknd - Starboy", duration: "3:50", category: "new" },
     { id: 1, name: "Sao Paulo", image: img3, file: song2, desc: "The Weeknd - Sao Paulo", duration: "5:10", category: "new" },
     { id: 2, name: "Timeless", image: img4, file: song3, desc: "The Weeknd - Timeless", duration: "4:16", category: "new" },
     { id: 3, name: "Blinding Lights", image: img5, file: song4, desc: "The Weeknd - Blinding Lights", duration: "3:23", category: "beat" },
     { id: 4, name: "Popular", image: img6, file: song5, desc: "The Weeknd - Popular", duration: "3:35", category: "love" },
-    { id: 5, name: "I Was Never There", image: img7, file: song6, desc: "The Weeknd - I Was Never There", duration: "4:10", category: "love", unlisted: true },
+    { id: 5, name: "I Was Never There", image: img7, file: song6, desc: "The Weeknd - I Was Never There", duration: "4:10", category: "love" },
     { id: 6, name: "paisa hai toh", image: img12, file: song12, desc: "farzi-paisa hai toh", duration: "3:10", category: "mass" },
-    { id: 7, name: "pani pani", image: img13, file: song13, desc: "badshah-pani pani", duration: "3:10", category: "mass", unlisted: true },
+    { id: 7, name: "pani pani", image: img13, file: song13, desc: "badshah-pani pani", duration: "3:10", category: "mass" },
     { id: 8, name: "chuttamalle", image: img14, file: song14, desc: "devara-chuttamalle", duration: "3:44", category: "love" },
     { id: 9, name: "daavudi", image: img15, file: song15, desc: "devara-daavudi", duration: "3:49", category: "dance" },
     { id: 10, name: "run it up", image: img16, file: song16, desc: "hanumankind-run it up", duration: "2:53", category: "beat" },
@@ -162,4 +154,10 @@ export const songsData = [
     { id: 14, name: "dabidi dibidi", image: img110, file: song110, desc: "daaku maharaj-dabidi dibidi", duration: "3:34", category: "beat" },
     { id: 15, name: "Like Him", image: img201, file: song201, desc: "Tyler,the creator", duration: "4:39", category: "global" },
     { id: 16, name: "O vasumathi", image: img202, file: song202, desc: "Yazin Nizar, Rita - Bharat Ane Nenu", duration: "4:33", category: "love" },
+    // -- Newly Added Songs --
+    { id: 17, name: "Firestorm", image: unlisted_song_1_image, file: unlisted_song_1_audio, desc: "They Call Him OG - Firestorm", duration: "4:05", category: "mass" },
+    { id: 18, name: "Om Namo Bhagavate", image: unlisted_song_2_image, file: unlisted_song_2_audio, desc: "Mahavatar Narsimha-Om Namo Bhagavate", duration: "3:24", category: "mass" },
+    { id: 19, name: "Chikitu", image: unlisted_song_3_image, file: unlisted_song_3_audio, desc: "Coolie-Chikitu", duration: "3:36", category: "dance" },
+    { id: 20, name: "Katyayani", image: unlisted_song_4_image, file: unlisted_song_4_audio, desc: "Little Hearts-Katyayani", duration: "1:45", category: "love" },
+    { id: 21, name: "Young Black & Rich", image: unlisted_song_5_image, file: unlisted_song_5_audio, desc: "Melly Mike-Young Black & Rich", duration: "3:35", category: "global" },
 ];

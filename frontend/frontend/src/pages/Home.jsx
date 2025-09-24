@@ -1,10 +1,9 @@
-// frontend/src/pages/Home.jsx
-
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext.jsx';
 import SongCard from "../components/SongCard.jsx";
 import AlbumCard from '../components/AlbumCard.jsx';
 import TrendingBanner from '../components/TrendingBanner.jsx';
+// UPDATED: bannerData is now imported
 import { albumsData, songsData, bannerData } from "../assets/assets.js";
 
 export default function Home() {
@@ -22,15 +21,17 @@ export default function Home() {
     }
   }, []);
 
-  // Song filters now check that the category is NOT "unlisted"
-  const trendingBeats = songsData.filter(song => song.category === 'beat' && song.category !== 'unlisted');
-  const loveHits = songsData.filter(song => song.category === 'love' && song.category !== 'unlisted');
-  const newReleases = songsData.filter(song => song.category === 'new' && song.category !== 'unlisted');
-  const trendingGlobal = songsData.filter(song => song.category === 'global' && song.category !== 'unlisted');
+  // UPDATED: Added filters for all song categories
+  const newReleases = songsData.filter(song => song.category === 'new');
+  const trendingGlobal = songsData.filter(song => song.category === 'global');
+  const massHits = songsData.filter(song => song.category === 'mass');
+  const danceTracks = songsData.filter(song => song.category === 'dance');
+  const trendingBeats = songsData.filter(song => song.category === 'beat');
+  const loveHits = songsData.filter(song => song.category === 'love');
 
   return (
     <div className="home-page">
-      {/* Pass the bannerData to the component */}
+      {/* ADDED: The trending banner is back */}
       <TrendingBanner banners={bannerData} />
 
       <h1 className="home-greeting">
@@ -42,13 +43,13 @@ export default function Home() {
         <h2>Featured Albums</h2>
         <div className="card-container">
           {albumsData.map((album) => (
-             <AlbumCard
-                key={album.id}
-                id={album.id}
-                name={album.name}
-                desc={album.desc}
-                image={album.image}
-              />
+            <AlbumCard
+              key={album.id}
+              id={album.id}
+              name={album.name}
+              desc={album.desc}
+              image={album.image}
+            />
           ))}
         </div>
       </section>
@@ -62,10 +63,31 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ADDED: Section for Trending Global songs */}
       <section className="home-section">
         <h2>Trending Global</h2>
         <div className="card-container">
           {trendingGlobal.map((song) => (
+            <SongCard key={song.id} song={song} />
+          ))}
+        </div>
+      </section>
+
+      {/* ADDED: Section for Top Songs India (mass) */}
+      <section className="home-section">
+        <h2>Top Songs India</h2>
+        <div className="card-container">
+          {massHits.map((song) => (
+            <SongCard key={song.id} song={song} />
+          ))}
+        </div>
+      </section>
+      
+      {/* ADDED: Section for Trending India (dance) */}
+      <section className="home-section">
+        <h2>Trending India</h2>
+        <div className="card-container">
+          {danceTracks.map((song) => (
             <SongCard key={song.id} song={song} />
           ))}
         </div>

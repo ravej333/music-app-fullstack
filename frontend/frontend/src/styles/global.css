@@ -26,6 +26,10 @@
   --text-primary: #fff;
   --text-secondary: #b3b3b3;
   --font-family: 'Circular Std', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  
+  /* ADDED: Variables for consistency */
+  --border-radius-main: 8px;
+  --transition-speed: 0.2s;
 }
 
 /* --- Foundational & Typography Styles --- */
@@ -44,6 +48,22 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* ADDED: Custom scrollbar for a more integrated look */
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--light-black);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gray-600);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-400);
+}
+
 
 h1, h2, h3, h4, h5, h6 {
   color: var(--text-primary);
@@ -123,7 +143,7 @@ a {
   border-radius: 20px;
   cursor: pointer;
   font-weight: bold;
-  transition: background-color 0.2s, transform 0.2s;
+  transition: background-color var(--transition-speed), transform var(--transition-speed);
 }
 
 .clear-history-btn:hover, .add-playlist-btn:hover, .logout-btn:hover {
@@ -146,6 +166,11 @@ a {
   box-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 
+.header-nav {
+  display: flex; /* UPDATED: Use flex for better alignment */
+  gap: 12px;
+}
+
 .header-nav button {
   background-color: rgba(0, 0, 0, 0.7);
   border: none;
@@ -155,9 +180,8 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-right: 12px;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.2s;
+  transition: background-color var(--transition-speed), transform var(--transition-speed);
 }
 
 .header-nav button:hover {
@@ -168,7 +192,7 @@ a {
 .header-nav img {
   width: 20px;
   filter: invert(0.8);
-  transition: filter 0.2s;
+  transition: filter var(--transition-speed);
 }
 
 .header-nav button:hover img {
@@ -185,7 +209,7 @@ a {
   font-size: 14px;
   padding: 10px 24px;
   border-radius: 50px;
-  transition: background-color 0.2s, color 0.2s;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
 .header-user .signup-btn {
@@ -225,7 +249,7 @@ a {
   font-size: 16px;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  transition: background-color 0.2s, box-shadow 0.2s;
+  transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
 }
 
 .user-profile:hover {
@@ -237,7 +261,7 @@ a {
   top: 50px;
   right: 0;
   background-color: var(--light-black);
-  border-radius: 8px;
+  border-radius: var(--border-radius-main);
   box-shadow: 0 4px 10px rgba(0,0,0,0.5);
   min-width: 200px;
   z-index: 20;
@@ -263,7 +287,7 @@ a {
   padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
 .profile-dropdown button:hover {
@@ -293,7 +317,7 @@ a {
 .sidebar-logo img {
   width: 100px;
   height: auto;
-  transition: transform 0.2s ease;
+  transition: transform var(--transition-speed) ease;
 }
 
 .sidebar-logo img:hover {
@@ -312,7 +336,7 @@ a {
   padding: 12px 16px;
   border-radius: 4px;
   font-weight: bold;
-  transition: color 0.2s, background-color 0.2s;
+  transition: color var(--transition-speed), background-color var(--transition-speed);
 }
 
 .nav-links a:hover {
@@ -351,7 +375,7 @@ a {
   border: none;
   cursor: pointer;
   padding: 5px;
-  transition: transform 0.2s;
+  transition: transform var(--transition-speed);
 }
 
 .create-playlist-btn:hover {
@@ -378,7 +402,7 @@ a {
   font-size: 0.8rem;
   font-weight: normal;
   color: var(--text-secondary);
-  transition: background-color 0.2s, color 0.2s;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
 .sidebar-playlist-item:hover {
@@ -395,7 +419,7 @@ a {
 /* --- Cards (Song, Album, Playlist) --- */
 .card-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* UPDATED: Slightly smaller min-width for better fit */
   gap: 24px;
   row-gap: 40px;
 }
@@ -403,9 +427,9 @@ a {
 .song-card, .album-card, .playlist-card {
   background-color: var(--light-black);
   padding: 20px;
-  border-radius: 10px;
+  border-radius: var(--border-radius-main);
   position: relative;
-  transition: background-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  transition: background-color var(--transition-speed), box-shadow var(--transition-speed), transform var(--transition-speed);
   cursor: pointer;
 }
 
@@ -417,13 +441,20 @@ a {
 
 .song-card-image, .album-card img, .playlist-card img {
   width: 100%;
-  border-radius: 8px;
+  border-radius: var(--border-radius-main);
   margin-bottom: 16px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
+/* ADDED: Container for image to position overlay and play button */
+.song-card-image-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--border-radius-main);
+}
+
 .song-card-info {
-  /* No specific styles needed here, parent will manage layout */
+  min-height: 40px; /* Ensures consistent card height */
 }
 
 .song-card-info p {
@@ -431,6 +462,25 @@ a {
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 0.8rem;
+}
+
+/* ADDED: Feedback overlay for adding to playlist */
+.feedback-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: var(--text-primary);
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.5s ease-in-out;
+  pointer-events: none;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* --- Hover Play Button --- */
@@ -447,18 +497,20 @@ a {
   bottom: 80px;
   right: 25px;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: all var(--transition-speed) ease-in-out;
   opacity: 0;
   transform: translateY(10px);
   box-shadow: 0 4px 10px rgba(0,0,0,0.4);
 }
 
-/* Show on hover */
 .song-card:hover .play-button,
 .album-card:hover .play-button,
 .playlist-card:hover .play-button {
   opacity: 1;
   transform: translateY(0);
+}
+.play-button:hover {
+  transform: scale(1.05);
 }
 
 .play-button img {
@@ -480,7 +532,7 @@ a {
 .playlist-header img {
   width: 250px;
   height: 250px;
-  border-radius: 8px;
+  border-radius: var(--border-radius-main);
   box-shadow: 0 8px 30px rgba(0,0,0,0.6);
 }
 .playlist-info p {
@@ -490,7 +542,7 @@ a {
 }
 .playlist-info h1 {
   margin: 10px 0;
-  font-size: 5rem;
+  font-size: clamp(2.5rem, 10vw, 5rem); /* UPDATED: Fluid font size */
   font-weight: 900;
   letter-spacing: -2px;
 }
@@ -507,7 +559,7 @@ a {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 0.2s, background-color 0.2s;
+  transition: transform var(--transition-speed), background-color var(--transition-speed);
 }
 .play-button-large:hover {
   transform: scale(1.05);
@@ -529,7 +581,7 @@ a {
   gap: 15px;
   padding: 12px 15px;
   color: var(--text-secondary);
-  transition: background-color 0.2s;
+  transition: background-color var(--transition-speed);
 }
 .track-list-header {
   font-weight: bold;
@@ -594,6 +646,7 @@ a {
   align-items: center;
   gap: 15px;
   width: 25%;
+  min-width: 180px; /* UPDATED: Prevent squishing on smaller screens */
 }
 .player-left img {
   width: 60px;
@@ -609,7 +662,7 @@ a {
   height: 22px;
   cursor: pointer;
   opacity: 0.7;
-  transition: all 0.2s;
+  transition: all var(--transition-speed);
 }
 .like-button:hover {
   opacity: 1;
@@ -636,7 +689,7 @@ a {
   width: 24px;
   cursor: pointer;
   opacity: 0.7;
-  transition: opacity 0.2s, transform 0.2s;
+  transition: opacity var(--transition-speed), transform var(--transition-speed);
 }
 .player-controls-buttons img:hover {
   opacity: 1;
@@ -646,8 +699,9 @@ a {
   opacity: 1;
   filter: invert(48%) sepia(87%) saturate(1251%) hue-rotate(99deg) brightness(94%) contrast(92%);
 }
-/* The main play/pause button has a white background */
-.player-controls-buttons img:nth-child(3) {
+/* UPDATED: Replaced fragile nth-child with a dedicated class for maintainability */
+/* NOTE: You'll need to add className="play-pause-main" to the main play/pause button in your JSX */
+.player-controls-buttons .play-pause-main {
   width: 40px;
   height: 40px;
   background-color: var(--text-primary);
@@ -655,9 +709,9 @@ a {
   padding: 8px;
   box-sizing: border-box;
   opacity: 1;
-  filter: invert(0); /* This ensures the icon is black on a white background */
+  filter: invert(0);
 }
-.player-controls-buttons img:nth-child(3):hover {
+.player-controls-buttons .play-pause-main:hover {
   transform: scale(1.05);
 }
 
@@ -681,7 +735,7 @@ a {
   border-radius: 3px;
   width: 0;
   border: none;
-  transition: background-color 0.2s;
+  transition: background-color var(--transition-speed);
 }
 .seek-bar:hover .seek-bar-progress {
   background-color: var(--primary-green);
@@ -693,12 +747,13 @@ a {
   gap: 15px;
   width: 25%;
   justify-content: flex-end;
+  min-width: 180px; /* UPDATED: Prevent squishing */
 }
 .player-right img {
   width: 20px;
   opacity: 0.7;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: opacity var(--transition-speed);
 }
 .player-right img:hover { opacity: 1; }
 
@@ -718,7 +773,7 @@ a {
   height: 14px;
   background: var(--text-primary);
   border-radius: 50%;
-  transition: background-color 0.2s;
+  transition: background-color var(--transition-speed);
 }
 .volume-slider:hover::-webkit-slider-thumb {
   background: var(--primary-green);
@@ -761,7 +816,6 @@ a {
   color: #b3b3b3;
 }
 
-/* Styles for the clear button */
 .clear-btn {
   position: absolute;
   top: 50%;
@@ -783,45 +837,66 @@ a {
 /* --- Small Screen/Mobile Responsiveness --- */
 @media (max-width: 768px) {
   .app-container {
-    grid-template-columns: 1fr; /* Single column layout for small screens */
-    grid-template-rows: auto 1fr auto; /* Sidebar at top, main in middle, player at bottom */
+    grid-template-columns: 1fr; /* Single column layout */
+    grid-template-rows: auto 1fr auto;
     grid-template-areas: "sidebar" "main" "player";
   }
 
-  .sidebar-container {
-    padding: 16px;
+  /* UPDATED: Make sidebar more compact and horizontal */
+  .sidebar {
+    padding: 10px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    overflow-x: auto;
+  }
+  .sidebar-logo, .sidebar hr, .sidebar-user-section, .playlist-section {
+    display: none; /* Hide complex elements on mobile sidebar */
+  }
+  .nav-links {
+    display: flex;
+    gap: 10px;
+    margin-top: 0;
+  }
+  .nav-links a {
+    padding: 8px 12px;
+    font-size: 0.9rem;
   }
   
-  .sidebar-logo img {
-    width: 100px; /* Smaller logo */
+  /* UPDATED: Adjust playlist header for mobile */
+  .playlist-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .playlist-header img {
+    width: 180px;
+    height: 180px;
   }
 
-  .nav-links a, .playlist-section a {
-    font-size: 0.8rem;
-    padding: 8px 12px;
+  .card-container {
+    gap: 16px;
   }
   
   .player-controls {
-    flex-direction: column; /* Stack controls vertically */
+    flex-wrap: wrap; /* Allow items to wrap */
+    justify-content: center;
     height: auto;
-    padding: 10px 16px;
+    padding: 10px;
+    gap: 10px;
   }
 
-  .player-left, .player-center, .player-right {
+  .player-center {
+    order: -1; /* Move playback controls to the top */
     width: 100%;
-    justify-content: center;
+  }
+
+  .player-left, .player-right {
+    width: 45%; /* Allow left and right to sit side-by-side */
+    min-width: 0;
   }
 
   .player-left {
-    margin-bottom: 10px;
-  }
-  
-  .player-center {
-    order: -1; /* Move playback controls to the top of the player bar */
-  }
-  
-  .player-timeline {
-    width: 80%;
-    margin: 10px 0;
+    justify-content: flex-start;
   }
 }
